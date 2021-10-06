@@ -1,10 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { LogoutAuthAction } from '../../redux/actions/AuthAction';
 
 function Header(props) {
 
-    const { auth } = props //Acá queda almacenado el estado del usuario
+    const { auth, logout } = props //Acá queda almacenado el estado del usuario
+    const history = useHistory();
 
     return (
         <div className="header d-flex justify-content-center py-2 shadow-sm">
@@ -26,7 +28,10 @@ function Header(props) {
                     <React.Fragment>
                         <h5 className="pr-2 mt-1" >{auth.user.username}</h5>
                         <Link to="./login">
-                            <button className="btn btn-danger btn-sm mr-2">Logout</button>
+                            <button 
+                                className="btn btn-danger btn-sm mr-2"
+                                onClick = {() => {logout(history)}}
+                            >Logout</button>
                         </Link>
                     </React.Fragment>
                 )}
@@ -43,7 +48,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        register: (userState) => {}
+        logout: (history) => {
+            dispatch(LogoutAuthAction(history))
+        }
     }
 }
 

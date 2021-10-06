@@ -1,3 +1,4 @@
+import axios from "axios";
 import { AuthActionType } from "./actions/AuthAction";
 
 
@@ -20,9 +21,8 @@ const getAuthState = () => {
         return authState;
     }
 }
-console.log(getAuthState())
-
 const newAuth = getAuthState()
+console.log("1", newAuth.token)
 
 const authReducer = (state = newAuth, action) => {
     switch (action.type) {
@@ -30,10 +30,21 @@ const authReducer = (state = newAuth, action) => {
             const newAuthState = {
                 isLoggedIn: true,
                 user: action.payload,
-                token: ""
+                token: "Tokenkenken"
             };
+            axios.defaults.headers.common[
+                "Authorization"
+            ] = `Bearer ${newAuth.token}`;
+            console.log(action.payload)
             localStorage.setItem("auth", JSON.stringify(newAuthState))
             return newAuthState;
+
+        case AuthActionType.LOGOUT_SUCCESS:
+            localStorage.removeItem("auth")
+            return authState;
+        case AuthActionType.LOGOUT_FAIL:
+            localStorage.removeItem("auth")
+            return authState;
 
         case AuthActionType.REGISTER_FAIL:            
             return state;

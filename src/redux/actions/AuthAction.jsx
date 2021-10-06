@@ -3,6 +3,8 @@ import axios from "axios";
 const AuthActionType = {
     REGISTER_SUCCESS: "REGISTER_SUCCESS",
     REGISTER_FAIL: "REGISTER_FAIL",
+    LOGOUT_SUCCESS: "LOGOUT_SUCCESS",
+    LOGOUT_FAIL: "LOGOUT_FAIL",
 };
 
 const RegisterAuthAction = (userState, history) => {
@@ -20,4 +22,21 @@ const RegisterAuthAction = (userState, history) => {
     }
 }
 
-export { RegisterAuthAction, AuthActionType }
+
+const LogoutAuthAction = (history) => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.post("/users/logout/" );
+            const { data } = res
+            console.log(data);
+            dispatch({type: AuthActionType.LOGOUT_SUCCESS, payload: data.message })
+            history.push("/")
+        } catch (error) {
+            console.error(error);
+            dispatch({type: AuthActionType.LOGOUT_FAIL, payload: {} })
+        }
+    }
+}
+
+
+export { RegisterAuthAction, LogoutAuthAction, AuthActionType }
