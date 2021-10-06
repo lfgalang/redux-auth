@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { RegisterAuthAction } from '../../redux/actions/AuthAction'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
 import "./register.css"
@@ -48,9 +49,9 @@ function Register(props) {
                                     placeholder="Nombre"
                                     //El onChange hace que cada vez que tecleo lo identifica
                                     onChange={(event) => {
-                                        const name = event.target.value;
+                                        const username = event.target.value;
                                         //El setUserState arma el objeto con el nombre del primero y los datos del segundo
-                                        setUserState({...userState, ...{name}})
+                                        setUserState({...userState, ...{username}})
                                     }}
                                 />
                             </div>
@@ -106,8 +107,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         register: (userState) => {
-            // dispatch()
-            console.log(userState)
+            dispatch(RegisterAuthAction(userState))
         }
     }
 
