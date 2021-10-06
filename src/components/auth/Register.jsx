@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router'
 import { RegisterAuthAction } from '../../redux/actions/AuthAction'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
@@ -12,7 +13,8 @@ function Register(props) {
     const [userState, setUserState] = useState({})
 
     //Los atributos que van para la funciones de redux
-    const { user, register } = props
+    const { user, register } = props;
+    const history = useHistory();
 
     return (
         <div>
@@ -35,7 +37,7 @@ function Register(props) {
                     <form
                         onSubmit= {(event) => {
                             event.preventDefault();
-                            register(userState)
+                            register(userState, history)
                         }}
                     
                     >
@@ -70,7 +72,7 @@ function Register(props) {
                             }}
                         />
                         <small id="emailHelp" className="form-text text-muted">
-                        We'll never share your email with anyone else.
+                        Tu contraseña y datos estan seguros.
                         </small>
                     </div>
                     <div className="form-group">
@@ -106,11 +108,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        register: (userState) => {
-            dispatch(RegisterAuthAction(userState))
+        register: (userState, history) => {
+            dispatch(RegisterAuthAction(userState, history))
         }
     }
-
 }
 
 

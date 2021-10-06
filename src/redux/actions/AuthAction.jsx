@@ -5,13 +5,14 @@ const AuthActionType = {
     REGISTER_FAIL: "REGISTER_FAIL",
 };
 
-const RegisterAuthAction = (userState) => {
+const RegisterAuthAction = (userState, history) => {
     return async (dispatch) => {
         try {
-            const res = await axios.post("/users/signup/", userState);
+            const res = await axios.post("/users/signup/", userState, );
             const { data } = res
             console.log(data);
             dispatch({type: AuthActionType.REGISTER_SUCCESS, payload: data})
+            history.push("/")
         } catch (error) {
             console.error(error);
             dispatch({type: AuthActionType.REGISTER_FAIL, payload: {} })

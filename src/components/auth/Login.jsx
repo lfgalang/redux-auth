@@ -13,7 +13,7 @@ function Login() {
                     <div className="sign-in-header">
                     <h4 className="font-weight-bold">Login</h4>
                     <p className="sign-in-intro">
-                        <span className="text-muted">New to Food Delivery App ? </span>
+                        <span className="text-muted">Diseño de elementos estructurales </span>
                         <span className="text-danger font-weight-bold">Sign Up</span>
                     </p>
                     <div className="login-social-media py-3">
@@ -30,7 +30,7 @@ function Login() {
                         className="form-control form-control-sm"
                         />
                         <small id="emailHelp" className="form-text text-muted">
-                        We'll never share your email with anyone else.
+                        Tu contraseña y datos estan seguros
                         </small>
                     </div>
                     <div className="form-group">
