@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
 import "./register.css"
 
 function Register() {
+
+    //El userState es el objeto donde se va a almacenar la información de los formularios con el useState
+    const [userState, setUserState] = useState({})
+
     return (
         <div>
             <Header />
@@ -13,7 +17,7 @@ function Register() {
                     <div className="sign-in-header">
                     <h4 className="font-weight-bold">Sign Up</h4>
                     <p className="sign-in-intro">
-                        <span className="text-muted">New to Food Delivery App ? </span>
+                        <span className="text-muted">Diseño de elementos estructurales </span>
                         <span className="text-danger font-weight-bold">Sign In</span>
                     </p>
                     <div className="login-social-media py-3">
@@ -22,15 +26,27 @@ function Register() {
                         </button>
                     </div>
                     </div>
-                    <form>
+                    <form
+                        onSubmit= {(event) => {
+                            event.preventDefault();
+                            console.log(userState)
+                        }}
+                    
+                    >
                     <div className="form-group">
                         <div className="form-row">
                             <div className="col">
                                 <label htmlFor="InputEmail">Nombre</label>
                                 <input
-                                type="text"
-                                className="form-control form-control-sm"
-                                placeholder="Nombre"
+                                    type="text"
+                                    className="form-control form-control-sm"
+                                    placeholder="Nombre"
+                                    //El onChange hace que cada vez que tecleo lo identifica
+                                    onChange={(event) => {
+                                        const name = event.target.value;
+                                        //El setUserState arma el objeto con el nombre del primero y los datos del segundo
+                                        setUserState({...userState, ...{name}})
+                                    }}
                                 />
                             </div>
                         </div>
@@ -41,6 +57,11 @@ function Register() {
                             type="email"
                             className="form-control form-control-sm"
                             placeholder="Correo electrónico"
+                            onChange={(event) => {
+                                const email = event.target.value;
+                                //El setUserState arma el objeto con el nombre del primero y los datos del segundo
+                                setUserState({...userState, ...{email}})
+                            }}
                         />
                         <small id="emailHelp" className="form-text text-muted">
                         We'll never share your email with anyone else.
@@ -52,6 +73,11 @@ function Register() {
                             type="password"
                             className="form-control form-control-sm"
                             placeholder="Contraseña"
+                            onChange={(event) => {
+                                const password = event.target.value;
+                                setUserState({...userState, ...{password}});
+                                // console.log(userState)
+                            }}
                         />
                     </div>
                     <button type="submit" className="btn btn-danger btn-sm">

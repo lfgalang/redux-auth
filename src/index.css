@@ -22,10 +22,10 @@
 }
 /* Home page */
 .home-main {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+  background-image: /*linear-gradient(rgba(255, 255, 255, 0.1), rgba(22, 6, 6, 0.1)),*/
     url("./assets/Logo.png");
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: local;
   background-size: contain;
   background-position: center 0px;
   padding: 50px 0 50px 0;
