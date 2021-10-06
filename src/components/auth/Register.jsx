@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { RegisterAuthAction } from '../../redux/actions/AuthAction'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
 import "./register.css"
 
-function Register() {
+function Register(props) {
+
 
     //El userState es el objeto donde se va a almacenar la información de los formularios con el useState
     const [userState, setUserState] = useState({})
+
+    //Los atributos que van para la funciones de redux
+    const { user, register } = props
 
     return (
         <div>
@@ -29,7 +35,7 @@ function Register() {
                     <form
                         onSubmit= {(event) => {
                             event.preventDefault();
-                            console.log(userState)
+                            register(userState)
                         }}
                     
                     >
@@ -43,9 +49,9 @@ function Register() {
                                     placeholder="Nombre"
                                     //El onChange hace que cada vez que tecleo lo identifica
                                     onChange={(event) => {
-                                        const name = event.target.value;
+                                        const username = event.target.value;
                                         //El setUserState arma el objeto con el nombre del primero y los datos del segundo
-                                        setUserState({...userState, ...{name}})
+                                        setUserState({...userState, ...{username}})
                                     }}
                                 />
                             </div>
@@ -92,4 +98,20 @@ function Register() {
     )
 }
 
-export default Register
+const mapStateToProps = (state) => {
+    return {
+        user: state,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        register: (userState) => {
+            dispatch(RegisterAuthAction(userState))
+        }
+    }
+
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register) 

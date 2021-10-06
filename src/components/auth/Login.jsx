@@ -7,7 +7,7 @@ function Login() {
     return (
         <div>
         <Header/>
-            <div className="fondo sign-in-main">
+            <div className="fondol sign-in-main">
                 <div className="container d-flex">
                 <div className="sign-in-container py-5 m-auto border">
                     <div className="sign-in-header">
