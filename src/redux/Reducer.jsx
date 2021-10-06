@@ -6,7 +6,7 @@ const authState = {
         name: "",
         expires_at: "",
         jwtToken: "",
-        authorities: [""]
+        authorities: []
     }
 }
 
