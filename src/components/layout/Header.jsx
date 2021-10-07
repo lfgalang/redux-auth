@@ -13,6 +13,15 @@ function Header(props) {
             <Link to="/" >
                 <h5 className="font-weight-bold text-dark mx-3 pt-1">Diseño de Soluciones</h5>
             </Link>
+            {auth.isLoggedIn ? (
+                <React.Fragment>
+                    <Link to="/" >
+                        <h5 className="font-weight-bold text-dark mx-3 pt-1">Diseño de vigas</h5>
+                    </Link>
+                </React.Fragment>
+            ) : (
+                <React.Fragment></React.Fragment>
+            )}
             <div className="ml-auto d-flex">
                 {!auth.isLoggedIn ? (
                     <React.Fragment>
@@ -26,6 +35,7 @@ function Header(props) {
                     </React.Fragment>
                 ) : (
                     <React.Fragment>
+                        
                         <h5 className="pr-2 mt-1" >{auth.user.username}</h5>
                         <Link to="./login">
                             <button 

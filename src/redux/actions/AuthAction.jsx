@@ -16,7 +16,7 @@ const RegisterAuthAction = (userState, history) => {
             const { data } = res
             console.log(data);
             dispatch({type: AuthActionType.REGISTER_SUCCESS, payload: data})
-            history.push("/")
+            history.push("/login")
         } catch (error) {
             console.error(error);
             dispatch({type: AuthActionType.REGISTER_FAIL, payload: {} })
@@ -48,7 +48,7 @@ const LogoutAuthAction = (history) => {
             const { data } = res
             console.log(data);
             dispatch({type: AuthActionType.LOGOUT_SUCCESS, payload: data.message })
-            history.push("/")
+            history.push("/login")
         } catch (error) {
             console.error(error);
             dispatch({type: AuthActionType.LOGOUT_FAIL, payload: {} })
