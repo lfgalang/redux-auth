@@ -1,3 +1,4 @@
+import axios from "axios";
 import { AuthActionType } from "./actions/AuthAction";
 
 
@@ -20,20 +21,47 @@ const getAuthState = () => {
         return authState;
     }
 }
-console.log(getAuthState())
-
 const newAuth = getAuthState()
+console.log("1", newAuth.token)
 
 const authReducer = (state = newAuth, action) => {
     switch (action.type) {
         case AuthActionType.REGISTER_SUCCESS: 
             const newAuthState = {
-                isLoggedIn: true,
-                user: action.payload,
+                isLoggedIn: false,
+                // user: action.payload,
                 token: ""
             };
+            axios.defaults.headers.common[
+                "Authorization"
+            ] = `Token ${newAuth.token}`;
+            console.log("Se ha registrado el usuario")
             localStorage.setItem("auth", JSON.stringify(newAuthState))
             return newAuthState;
+
+
+        case AuthActionType.LOGIN_SUCCESS:
+            console.log("AuthActionType",action.type)
+            console.log( "action.payload", action.payload)
+            console.log( "action.payload.token", action.payload.token)
+            const loginAuthState = {
+                isLoggedIn: true,
+                user: action.payload.user,
+                token: action.payload.token,
+            };
+            axios.defaults.headers.common["Authorization"] = `Token ${action.payload.token}`;            
+            localStorage.setItem("auth", JSON.stringify(loginAuthState));
+            return loginAuthState;
+
+        case AuthActionType.LOGOUT_SUCCESS:
+            localStorage.removeItem("auth")
+            return authState;
+        case AuthActionType.LOGOUT_FAIL:
+            localStorage.removeItem("auth")
+            return authState;
+
+        case AuthActionType.LOGIN_FAIL:            
+            return authState;
 
         case AuthActionType.REGISTER_FAIL:            
             return state;
