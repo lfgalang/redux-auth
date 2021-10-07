@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router'
+import { LoginAuthAction } from '../../redux/actions/AuthAction'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
 import "./login.css"
 
-function Login() {
+function Login(props) {
+
+    const [loginState, setLoginState] = useState({});
+    const history = useHistory();
+    
+    const { login } = props;
+
     return (
         <div>
         <Header/>
@@ -22,12 +31,20 @@ function Login() {
                         </button>
                     </div>
                     </div>
-                    <form>
+                    <form onSubmit={(event) => {
+                        event.preventDefault()
+                        login(loginState, history)
+                        console.log(loginState)
+                    }} >
                     <div className="form-group">
                         <label htmlFor="InputEmail">Email address</label>
                         <input
-                        type="email"
-                        className="form-control form-control-sm"
+                            type="email"
+                            className="form-control form-control-sm"
+                            onChange = {(event) => {
+                                const email = event.target.value;
+                                setLoginState({...loginState, ...{email}})
+                            }}
                         />
                         <small id="emailHelp" className="form-text text-muted">
                         Tu contraseña y datos estan seguros
@@ -36,8 +53,12 @@ function Login() {
                     <div className="form-group">
                         <label htmlFor="InputPassword1">Password</label>
                         <input
-                        type="password"
-                        className="form-control form-control-sm"
+                            type="password"
+                            className="form-control form-control-sm"
+                            onChange = {(event) => {
+                                const password = event.target.value;
+                                setLoginState({...loginState, ...{password}})
+                            }}
                         />
                     </div>
                     <button type="submit" className="btn btn-danger btn-sm">
@@ -52,4 +73,20 @@ function Login() {
     )
 }
 
-export default Login
+
+
+const mapStateToProps = (state) => {
+    return {
+        user: state,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (loginState, history) => {
+            dispatch(LoginAuthAction(loginState, history))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -34,7 +34,7 @@ const authReducer = (state = newAuth, action) => {
             };
             axios.defaults.headers.common[
                 "Authorization"
-            ] = `Bearer ${newAuth.token}`;
+            ] = `Token ${newAuth.token}`;
             console.log(action.payload)
             localStorage.setItem("auth", JSON.stringify(newAuthState))
             return newAuthState;
@@ -44,6 +44,23 @@ const authReducer = (state = newAuth, action) => {
             return authState;
         case AuthActionType.LOGOUT_FAIL:
             localStorage.removeItem("auth")
+            return authState;
+
+        case AuthActionType.LOGIN_SUCCESS:
+            console.log("AuthActionType",action.type)
+            console.log( "action.payload", action.payload)
+            console.log( "action.payload.token", action.payload.token)
+            const loginAuthState = {
+                isLoggedIn: true,
+                user: action.payload.user,
+                token: action.payload.token,
+            };
+            axios.defaults.headers.common["Authorization"] = `Bearer tokensito`;
+            
+            localStorage.setItem("auth", JSON.stringify(loginAuthState));
+            return loginAuthState;
+
+        case AuthActionType.LOGIN_FAIL:            
             return authState;
 
         case AuthActionType.REGISTER_FAIL:            
