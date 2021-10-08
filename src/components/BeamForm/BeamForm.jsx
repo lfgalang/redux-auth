@@ -237,7 +237,7 @@ export default function BeamForm() {
                 </div>
                 <div className="field">
                     <p>
-                        <label className="labelF" >exposureType</label>
+                        <label className="labelF" >Tipo de exposición de la viga</label>
                     </p>
                     <div className="info" >
                         <span className="inputSelect" >
@@ -251,7 +251,7 @@ export default function BeamForm() {
                 </div>
                 <div className="field">
                     <p>
-                        <label className="labelF" >standard</label>
+                        <label className="labelF" >Norma</label>
                     </p>
                     <div className="info" >
                         <span className="unitsExposure">
@@ -396,7 +396,7 @@ export default function BeamForm() {
                         </div>
                         <div className="designModel">
                             <label htmlFor="No"  className="labelCheck">Diseño Automático</label>
-                            <input type="radio" name="Auto" value="Auto" {...register('designModel', { required: false })} />
+                            <input className="radio" type="radio" name="Auto" value="Auto" {...register('designModel', { required: false })} />
                         </div>
                         <div className="designModel">
                             <label  className="labelCheck">Diseño por cantidad</label>
@@ -469,7 +469,7 @@ export default function BeamForm() {
 
                     
                 </div>           
-                <button className="boton" type="submit" >SUBMIT</button>
+                <button className="boton" type="submit" >ENVIAR</button>
             </form>
             {/* <pre>{JSON.stringify(userInfo, undefined, 2)}</pre> */}
         </div>

@@ -23,8 +23,8 @@ function App() {
           {/* <Route exact path="/login" >{active ? <Home /> : <Login />}</Route> */}
           <Route exact path="/signup" ><Register /></Route>
           {/* <Route exact path="/signup" >{active ? <Home /> : <Register />}</Route> */}
-          {/* <Route exact path="/beams" ><Beams  /></Route> */}
-          <Route exact path="/beams" >{active ? <Beams /> : <Login />}</Route>
+          <Route exact path="/beams" ><Beams  /></Route>
+          {/* <Route exact path="/beams" >{active ? <Beams /> : <Login />}</Route> */}
         </Switch>
         
       </Router>

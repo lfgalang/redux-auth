@@ -2,6 +2,8 @@ import "./beamDraw.css"
 import React, { useEffect, useRef } from 'react'
 import { select } from "d3";
 import * as d3 from 'd3';
+import textures from 'textures';
+import event from "d3";
 
 const x0 = 150;
 const y0 = 50;
@@ -49,12 +51,15 @@ export default function BeamDraw() {
 
 
         // Concrete Section
+        var t = textures.lines().size(5).strokeWidth(2);
+        svg.call(t);        
         svg.append("rect")
             .attr("width", section["beam"]["b"])
             .attr("height", section["beam"]["h"])
             .attr("fill", "grey")
             .attr("x",x0)
             .attr("y",y0)
+            .style("fill",t.url())
 
         // Feje exterior
         console.log(section["stirrups"]["bni"])

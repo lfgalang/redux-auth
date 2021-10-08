@@ -30,6 +30,7 @@
 .title{
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
 }
 
 .field{
@@ -53,7 +54,7 @@
 
 .input{
     padding: 12px;
-    width: 200px;
+    width: 230px;
     height: 5px;
     max-width: 90%;
     font-size: 12px;
@@ -96,6 +97,7 @@
 
 .diam{
     /* justify-content: center; */
+    margin-top: -5px;
     margin-right: 20px;
     display: flex;
     padding-left: 40%;
@@ -123,6 +125,8 @@
 .fieldsetF{
     font-size: 12px;
 }
+
+
 .diamDis{
     text-align: center;
     font-size: 15px;
@@ -132,12 +136,18 @@
 
 .labelCheck{
     font-size: 12px;
+    padding-right: 5px;
 }
 
 .designModel{
     display: block;
     text-align: right;
     margin-right: 30%;
+}
+
+.radio{
+    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .checkMulti{
