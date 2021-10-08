@@ -1,5 +1,5 @@
 import React from 'react'
-import BeamDraw from '../beamDraw/BeamDraw'
+import {BeamDraw} from '../beamDraw/BeamDraw'
 import BeamForm from '../BeamForm/BeamForm'
 import DesignSelection from '../designSelection/DesignSelection'
 import Footer from '../layout/Footer'
