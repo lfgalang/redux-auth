@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from './redux/Store';
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://ec2-3-136-85-7.us-east-2.compute.amazonaws.com"
+axios.defaults.baseURL = "http://localhost:8000"
 
 ReactDOM.render(
   <React.StrictMode>

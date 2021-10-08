@@ -5,9 +5,30 @@ import * as d3 from 'd3';
 import textures from 'textures';
 import event from "d3";
 
+const dataR = (objRecived) => {
+
+    var name = 'No.4 , No.5 , 0'
+    bars = section["rebar"]["bars"]
+
+    section = {"beam":{"b":300,"h":500},
+    
+    "stirrups":{"x0i":84.525,"y0i":84.525,"rdi":28.575,"bni":130.95,"hni":330.95,"x0e":75,"y0e":75,"rde":38.1,"bne":150,"hne":350},
+
+    "rebar":{ "bars": objRecived['response'][name]['geometry']['bars'],
+      "r": objRecived['response'][name]['geometry']['r'],
+      "cx": objRecived['response'][name]['geometry']['cx'],
+      "cy": objRecived['response'][name]['geometry']['cy']},
+
+      "hooks":{"cxg":113.1,"cyg":113.1}
+    }
+
+    console.log(objRecived)
+    console.log(section)
+}
+
+
 const x0 = 150;
 const y0 = 50;
-
 
 
 var section = {
@@ -36,10 +57,10 @@ var section = {
     }
 
 
-const bars = section["rebar"]["bars"]
+var bars = section["rebar"]["bars"]
 
 
-export default function BeamDraw() {
+function BeamDraw() {
 
     //Para manejar los elelemtos como componentes d3
     const svgRef = useRef();
@@ -121,3 +142,5 @@ export default function BeamDraw() {
             
     )
 }
+
+export {dataR, BeamDraw}
