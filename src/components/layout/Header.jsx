@@ -15,7 +15,7 @@ function Header(props) {
             </Link>
             {auth.isLoggedIn ? (
                 <React.Fragment>
-                    <Link to="/" >
+                    <Link to="/beams" >
                         <h5 className="font-weight-bold text-dark mx-3 pt-1">Diseño de vigas</h5>
                     </Link>
                 </React.Fragment>

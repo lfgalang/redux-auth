@@ -26,8 +26,8 @@
     url("./assets/Logo.png");
   background-repeat: no-repeat;
   background-attachment: local;
-  background-size: contain;
-  background-position: center 0px;
+  background-size: 700px;
+  background-position: center 30px;
   padding: 50px 0 50px 0;
   height: 600px;
   width: 100%;
