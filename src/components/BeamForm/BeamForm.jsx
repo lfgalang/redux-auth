@@ -41,7 +41,7 @@ const parser = (datos, dataDepth) => {
 
 const fetchToAPI = (datos) => {
 
-    const api_url = 'http://ec2-3-17-140-206.us-east-2.compute.amazonaws.com/'
+    const api_url = 'http://localhost:8000/'
 
     fetch( api_url + "dccad/calculateBeam/",
         {

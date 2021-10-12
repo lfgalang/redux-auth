@@ -1,9 +1,9 @@
 import React from 'react'
-import BeamDraw from '../beamDraw/BeamDraw'
-import BeamForm from '../BeamForm/BeamForm'
-import DesignSelection from '../designSelection/DesignSelection'
-import Footer from '../layout/Footer'
-import Header from '../layout/Header'
+import BeamDraw from '../../components/beamDraw/BeamDraw'
+import BeamForm from '../../components/BeamForm/BeamForm'
+import DesignSelection from '../../components/designSelection/DesignSelection'
+import Footer from '../../components/layout/Footer'
+import Header from '../../components/layout/Header'
 import "./beams.css"
 
 function Beams() {

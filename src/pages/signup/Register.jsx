@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
+import Footer from '../../components/layout/Footer'
+import Header from '../../components/layout/Header'
 import { RegisterAuthAction } from '../../redux/actions/AuthAction'
-import Footer from '../layout/Footer'
-import Header from '../layout/Header'
 import "./register.css"
 
 function Register(props) {

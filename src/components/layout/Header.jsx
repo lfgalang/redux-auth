@@ -18,6 +18,9 @@ function Header(props) {
                     <Link to="/beams" >
                         <h5 className="font-weight-bold text-dark mx-3 pt-1">Diseño de vigas</h5>
                     </Link>
+                    <Link to="/libraries" >
+                        <h5 className="font-weight-bold text-dark mx-3 pt-1">Librerías</h5>
+                    </Link>
                 </React.Fragment>
             ) : (
                 <React.Fragment></React.Fragment>

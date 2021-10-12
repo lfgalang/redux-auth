@@ -1,9 +1,11 @@
 import './App.css';
-import Home from './components/home/Home';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Beams from './components/Beams/Beams';
+import Login from './pages/login/Login';
+import Register from './pages/signup/Register';
+import Home from './pages/home/Home';
+import Beams from './pages/Beams/Beams';
+import LibraryEdit from './pages/libraryEdit/LibraryEdit';
+import Libraries from './pages/libraries/Libraries';
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
           {/* <Route exact path="/signup" >{active ? <Home /> : <Register />}</Route> */}
           <Route exact path="/beams" ><Beams  /></Route>
           {/* <Route exact path="/beams" >{active ? <Beams /> : <Login />}</Route> */}
+          <Route exact path="/libraries" ><Libraries  /></Route>
+          <Route exact path="/libraryEdit" ><LibraryEdit  /></Route>
         </Switch>
         
       </Router>
