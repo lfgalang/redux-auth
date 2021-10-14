@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { select } from "d3";
 import * as d3 from 'd3';
 import textures from 'textures';
-import event from "d3";
+// import event from "d3";
 
 const x0 = 150;
 const y0 = 50;

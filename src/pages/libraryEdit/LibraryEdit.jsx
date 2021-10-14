@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import "./libraryEdit.css"
-import MaterialTable from 'material-table'
+import MaterialTable, {MTableToolbar} from 'material-table'
 import Header from '../../components/layout/Header';
+import { Button } from '@material-ui/core';
 
 function LibraryEdit() {
     const url = "http://localhost:4000/libraries";
@@ -13,14 +14,12 @@ function LibraryEdit() {
         .then(resp => setData(resp))
     }
 
-    
-
     useEffect(() => {
         getLibraries()
     },[])
 
     // const daticos = getLibraries()
-    // console.log(daticos)
+    console.log(data)
 
     const columns = [
         {
@@ -36,8 +35,8 @@ function LibraryEdit() {
         },
         {title:"Area", field:"area"},
         {title:"peso", field:"weight"},
-        {title:"Color del borde", field:"borderColor"},
-        {title:"Color de relleno", field:"fillColor"},
+        {title:"Color del borde", field:"borderColor", lookup:{"rgb1":"red", "rgb2":"black" } },
+        {title:"Color de relleno", field:"fillColor", lookup:{"rgb1":"red", "rgb2":"black" }},
     ]
 
     
@@ -50,9 +49,15 @@ function LibraryEdit() {
 
                 <MaterialTable
                     title = "Libreria de barras" 
+                    className = "fila"
                     columns = {columns} 
                     data = {data}
-                    options = {{actionsColumnIndex:-1, addRowPosition:"last" }}
+                    options = {{
+                        actionsColumnIndex:-1, 
+                        addRowPosition:"last",
+                        // rowStyle: {backgroundColor:"grey", color:"white", height:"100px", border:"solid black" }
+                    }}
+                    
                     editable = {{
                         // PARA CREAR NUEVAS FILAS
                         onRowAdd:(newData) => new Promise((resolve,reject) => {

@@ -63,7 +63,7 @@ const NoData = ["No.2", "No.3", "No.4", "No.5", "No.6", "No.7", "No.8", "No.9", 
 const mmData = ["6.4 mm", "9.5 mm", "12.7 mm", "15.9 mm", "19.1 mm", "22.2 mm", "25.4 mm", "28.7 mm", "32.3 mm", "35.8 mm", "43.0 mm", "57.3 mm"]
 const plgData = [`1/4"`, `3/8"`, `1/2"`, `5/8"`, `3/4"`, `7/8"`, `1"`, `1-1/8"`, `1-1/4"`, `1-3/8"`, `1-3/4"`, `2-1/4"`]
 
-const modDis = ["CANTIDAD", "AUTOMÁTICO", "DISTANCIA"]
+// const modDis = ["CANTIDAD", "AUTOMÁTICO", "DISTANCIA"]
 
 
 export default function BeamForm() {
