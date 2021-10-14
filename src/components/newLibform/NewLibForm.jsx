@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './newLibForm.css'
 import { useForm } from "react-hook-form";
+import { useHistory } from 'react-router';
 // import Logo from "./Logo.png"
 // import axios from 'axios';
 
@@ -40,7 +41,7 @@ const parser = (datos) => {
             },
             "nomenclatureDefinition":{
                 "prefix":datos["prefix"],
-                "sufix":datos["sufix"]
+                "suffix":datos["suffix"]
             }
         }
     } 
@@ -48,56 +49,60 @@ const parser = (datos) => {
 }
 
 
+const url = "http://localhost:8000/dccad/createRebarLibrary/";
+
+const fetchToAPI = async (datos) => {
+    await fetch( url,
+        {
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(datos)
+        })
+            .then(function(response){ return response.json(); })
+            .then(function(data){ console.log(data) })
+            // .then(() => history.push(`/libraryedit?rebarLibrary_id=${datos.rebarLibrary_id}`))
+    
+}        
+        
 
 
-const url = "http://localhost:4000/libraries";
-
-
-
-
-
-//     const api_url = 'http://localhost:8000/'
-
-// const fetchToAPI = (datos) => {
-//     fetch( api_url + "dccad/calculateBeam/",
-//         {
-//             // mode: 'cors',
-//             headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json'
-//             // 'Access-Control-Allow-Origin': '*'
-//             },
-//             method: "POST",
-//             body: JSON.stringify(datos)
-//         })
-//             .then(function(response){ return response.json(); })
-//             .then(function(data){ console.log(data) })
-// }
+// const url = "http://localhost:4000/libraries";
 
 
 
 
 export default function NewLibForm() {
 
+
     // var datosListos;
 
     const { register, handleSubmit, watch, errors } = useForm()
     const [userInfo, setUserInfo] = useState();
 
-    const onSubmit = (data) => {
+    let history = useHistory();
+
+    // const f = (id) => {history.push(`/libraryedit?rebarLibrary_id=${datum.info.rebarLibrary_id}`)}
+
+    const onSubmit = async (data) => {
+
         setUserInfo(data)
         var datum = parser(data)
 
         console.log(datum)
-        // fetchToAPI(datum)
+        await fetchToAPI(datum)
+        history.push(`/libraryedit?rebarLibrary_id=${datum.info.rebarLibrary_id}`)
+
     }
 
-    
+    console.log(1112)
 
-    const current = new Date();
-    const date = `${current.getHours()}:${current.getMinutes()} ${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+    // const current = new Date();
+    // const date = `${current.getHours()}:${current.getMinutes()} ${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
   
-    console.log(date)
+    // console.log(date)
     
 
     return (
@@ -216,7 +221,7 @@ export default function NewLibForm() {
                                 name='sufix'
                                 placeholder='sufijo'
                                 type='text'
-                                {...register('sufix', { required: true })}
+                                {...register('suffix', { required: true })}
                             />
                         </span>
                     </div>                    

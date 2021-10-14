@@ -5,18 +5,61 @@ import Header from '../../components/layout/Header';
 import { Button } from '@material-ui/core';
 
 function LibraryEdit() {
-    const url = "http://localhost:4000/libraries";
 
-    const [data, setData] = useState([])
 
-    const getLibraries = () => {
-        fetch(url).then(resp => resp.json())
-        .then(resp => setData(resp))
+    const urlp = window.location.href
+    console.log(urlp)
+
+    var url2 = new URL(urlp);
+    var rebarLibrary_id = url2.searchParams.get("rebarLibrary_id");
+    // console.log(c);
+
+
+    // const url = "http://localhost:4000/libraries";
+
+    // const [data, setData] = useState([])
+
+
+    const datos = {
+        "user_id": JSON.parse(localStorage.getItem('auth')).user.id,
+        "rebarLibrary_id": rebarLibrary_id.toString()
     }
+    const url = "http://localhost:8000/dccad/getUserRebarLibrary/";
 
+    const [data, setData] = useState([]);
+
+    const fetchData = (datos) => {fetch( url,
+            {
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(datos)
+            })
+                .then(function(response){ return response.json(); })
+                .then(function(datas){ setData(() => {
+                    return datas['response']['data']
+                }) 
+            })
+        }
+        
     useEffect(() => {
-        getLibraries()
-    },[])
+        console.log('dentro')
+        fetchData(datos)
+    }, []);
+
+
+
+
+    // const getLibraries = () => {
+    //     fetch(url).then(resp => resp.json())
+    //     .then(resp => setData(resp))
+    // }
+
+    // useEffect(() => {
+    //     getLibraries()
+    // },[])
 
     // const daticos = getLibraries()
     console.log(data)
@@ -24,8 +67,8 @@ function LibraryEdit() {
     const columns = [
         {
             title:"Nomenclatura", 
-            field:"Nomenclature", 
-            validate: rowData => rowData.Nomenclature==='' ? { isValid: false, helperText: 'No puede estar vacio' } : true,
+            field:"nomenclature", 
+            validate: rowData => rowData.nomenclature==='' ? { isValid: false, helperText: 'No puede estar vacio' } : true,
         },
         {
             title:"diametro", 
@@ -34,9 +77,9 @@ function LibraryEdit() {
 
         },
         {title:"Area", field:"area"},
-        {title:"peso", field:"weight"},
-        {title:"Color del borde", field:"borderColor", lookup:{"rgb1":"red", "rgb2":"black" } },
-        {title:"Color de relleno", field:"fillColor", lookup:{"rgb1":"red", "rgb2":"black" }},
+        {title:"peso", field:"mass"},
+        {title:"Color del borde", field:"borderColor", /*lookup:{"rgb1":"red", "rgb2":"black" }*/ },
+        {title:"Color de relleno", field:"fillColor", /*lookup:{"rgb1":"red", "rgb2":"black" }*/},
     ]
 
     
@@ -59,44 +102,44 @@ function LibraryEdit() {
                     }}
                     
                     editable = {{
-                        // PARA CREAR NUEVAS FILAS
-                        onRowAdd:(newData) => new Promise((resolve,reject) => {
-                            //Backend call
-                            fetch(url,{
-                                method:"POST",
-                                headers:{
-                                    'Content-type':"application/json"
-                                },
-                                body:JSON.stringify(newData)
-                            }).then(resp => resp.json())
-                            .then(resp => {getLibraries()
-                                resolve() 
-                            })
-                        }),
-                        // PARA MODIFICAR FILAS
-                        onRowUpdate: (newData, oldData) => new Promise((resolve,reject) => {
-                            //Backend call
-                            fetch(url+ "/" +oldData["id"],{
-                                method:"PUT",
-                                headers:{
-                                    'Content-type':"application/json"
-                                },
-                                body:JSON.stringify(newData)
-                            }).then(resp => resp.json())
-                            .then(resp => {getLibraries()
-                                resolve() 
-                            })
-                        }),
-                        // PARA BORRAR FILAS
-                        onRowDelete: (oldData) => new Promise((resolve,reject) => {
-                            //Backend call
-                            fetch(url+ "/" +oldData["id"],{
-                                method:"DELETE",
-                            }).then(resp => resp.json())
-                            .then(resp => {getLibraries()
-                                resolve() 
-                            })
-                        }),
+                        // // PARA CREAR NUEVAS FILAS
+                        // onRowAdd:(newData) => new Promise((resolve,reject) => {
+                        //     //Backend call
+                        //     fetch(url,{
+                        //         method:"POST",
+                        //         headers:{
+                        //             'Content-type':"application/json"
+                        //         },
+                        //         body:JSON.stringify(newData)
+                        //     }).then(resp => resp.json())
+                        //     .then(resp => {getLibraries()
+                        //         resolve() 
+                        //     })
+                        // }),
+                        // // PARA MODIFICAR FILAS
+                        // onRowUpdate: (newData, oldData) => new Promise((resolve,reject) => {
+                        //     //Backend call
+                        //     fetch(url+ "/" +oldData["id"],{
+                        //         method:"PUT",
+                        //         headers:{
+                        //             'Content-type':"application/json"
+                        //         },
+                        //         body:JSON.stringify(newData)
+                        //     }).then(resp => resp.json())
+                        //     .then(resp => {getLibraries()
+                        //         resolve() 
+                        //     })
+                        // }),
+                        // // PARA BORRAR FILAS
+                        // onRowDelete: (oldData) => new Promise((resolve,reject) => {
+                        //     //Backend call
+                        //     fetch(url+ "/" +oldData["id"],{
+                        //         method:"DELETE",
+                        //     }).then(resp => resp.json())
+                        //     .then(resp => {getLibraries()
+                        //         resolve() 
+                        //     })
+                        // }),
                     }}
                 />
             </div>
