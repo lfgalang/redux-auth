@@ -18,7 +18,7 @@ const parser = (datos, dataDepth) => {
                 'unit': datos[k+'_units']
             }
         }else if(k === "nomenclatureOptions"){
-            parsedData[k] = [datos[k]]    
+            parsedData[k] = datos[k]   
         }else{
             if (typeof datos[k] === "boolean"){
                 if (datos[k] === true){
@@ -43,7 +43,9 @@ const fetchToAPI = (datos) => {
 
     const api_url = 'http://localhost:8000/'
 
-    fetch( api_url + "dccad/calculateBeam/",
+    datos['stirrupNomenclature'] = 'No.3'
+
+    fetch( api_url + "dccad/calculateAutoBeam/",
         {
             // mode: 'cors',
             headers: {
@@ -75,7 +77,7 @@ export default function BeamForm() {
 
     const onSubmit = (data) => {
         setUserInfo(data)
-        var datum = parser(data,  ['momentU', 'width', 'height', 'fy', 'fpc', 'diamDiff', 'spaceMin'])
+        var datum = parser(data,  ['momentU', 'width', 'height', 'fy', 'fpc', 'maxNomenclatureDistance', 'spaceMin'])
 
         console.log(datum)
         fetchToAPI(datum)
@@ -86,7 +88,7 @@ export default function BeamForm() {
     var No = Boolean(false);
     var mm = Boolean(false);
     var plg = Boolean(false);    
-    switch (watch("NomenclatureType")){
+    switch (watch("nomenclatureType")){
         case "No":
             No = Boolean(true)
         break;
@@ -103,18 +105,18 @@ export default function BeamForm() {
     var auto = Boolean(false);
     var quantity = Boolean(false);
     var space = Boolean(false);
-    switch (watch("designModel")){
+    switch (watch("sectionRebarCalculationType")){
         case "Auto":
             auto = Boolean(true)
-            console.log(watch("designModel"))
+            console.log(watch("sectionRebarCalculationType"))
         break;
         case "Quantity":
             quantity = Boolean(true);
-            console.log(watch("designModel"))
+            console.log(watch("sectionRebarCalculationType"))
         break
         case "Space":
             space = Boolean(true)
-            console.log(watch("designModel"))
+            console.log(watch("sectionRebarCalculationType"))
         break
         default:
             console.log("no elección de modalidad de diseño")
@@ -256,7 +258,7 @@ export default function BeamForm() {
                     <div className="info" >
                         <span className="unitsExposure">
                             <select className="selectUnitsExpo" {...register("standard", { required: true })}>
-                                <option value="NSR">NSR-10</option>
+                                <option value="NSR10">NSR-10</option>
                                 {/* <option value="2">MEX</option>
                                 <option value="3">ACI</option> */}
                             </select>
@@ -289,15 +291,15 @@ export default function BeamForm() {
                     </div>                
                     <span>
                         <label htmlFor="No"  className="labelCheck">N°</label>
-                        <input type="radio" name="No" value="No" {...register('NomenclatureType', { required: false })} />
+                        <input type="radio" name="No" value="No" {...register('nomenclatureType', { required: false })} />
                     </span>
                     <span>
                         <label  className="labelCheck">mm</label>
-                        <input type="radio" name="mm" value="mm" {...register('NomenclatureType', { required: false })} />
+                        <input type="radio" name="mm" value="mm" {...register('nomenclatureType', { required: false })} />
                     </span>
                     <span>
                         <label  className="labelCheck">plg</label>
-                        <input type="radio" name="plg" value="plg" {...register('NomenclatureType', { required: false })} />
+                        <input type="radio" name="plg" value="plg" {...register('nomenclatureType', { required: false })} />
                     </span>
                     
                     <span className="NomSelector">
@@ -314,7 +316,7 @@ export default function BeamForm() {
                                                         type="checkbox" 
                                                         value={c} 
                                                         name="No" 
-                                                        {...register('NomenclatureOptions', { required: false })}
+                                                        {...register('nomenclatureOptions', { required: false })}
                                                     />{c}
                                                 </label>
                                             )
@@ -335,7 +337,7 @@ export default function BeamForm() {
                                                         type="checkbox" 
                                                         value={c} 
                                                         name="No" 
-                                                        {...register('NomenclatureOptions', { required: false })}
+                                                        {...register('nomenclatureOptions', { required: false })}
                                                     />{c}
                                                 </label>
                                             )
@@ -356,7 +358,7 @@ export default function BeamForm() {
                                                         type="checkbox" 
                                                         value={c} 
                                                         name="No" 
-                                                        {...register('NomenclatureOptions', { required: false })}
+                                                        {...register('nomenclatureOptions', { required: false })}
                                                     />{c}
                                                 </label>
                                             )
@@ -374,14 +376,14 @@ export default function BeamForm() {
                         <div className="info" >
                             <input 
                                 className="input" 
-                                name='diamDiff'
+                                name='maxNomenclatureDistance'
                                 placeholder='Ingrese la diferencia entre diámetros'
                                 type='number'
                                 step="0.001"
-                                {...register('diamDif', { required: true })}
+                                {...register('maxNomenclatureDistance', { required: true })}
                             />
                             <span className="units" >
-                                <select className="selectUnits" {...register("diamDiff_units", { required: true })}>
+                                <select className="selectUnits" {...register("maxNomenclatureDistance_units", { required: true })}>
                                     <option value="mm">mm</option>
                                     <option value="No">N°</option>
                                     <option value="plg">plg</option>
@@ -394,17 +396,17 @@ export default function BeamForm() {
                         <div>
                             <label htmlFor="" className="labelF">Modalidad de diseño</label>
                         </div>
-                        <div className="designModel">
+                        <div className="sectionRebarCalculationType">
                             <label htmlFor="No"  className="labelCheck">Diseño Automático</label>
-                            <input className="radio" type="radio" name="Auto" value="Auto" {...register('designModel', { required: false })} />
+                            <input className="radio" type="radio" name="Auto" value="0" {...register('sectionRebarCalculationType', { required: false })} />
                         </div>
-                        <div className="designModel">
+                        <div className="sectionRebarCalculationType">
                             <label  className="labelCheck">Diseño por cantidad</label>
-                            <input type="radio" name="Quantity" value="Quantity" {...register('designModel', { required: false })} />
+                            <input type="radio" name="Quantity" value="1" {...register('sectionRebarCalculationType', { required: false })} />
                         </div>
-                        <div className="designModel">
+                        <div className="sectionRebarCalculationType">
                             <label  className="labelCheck">Diseño por espaciamiento</label>
-                            <input type="radio" name="Space" value="Space" {...register('designModel', { required: false })} />
+                            <input type="radio" name="Space" value="2" {...register('sectionRebarCalculationType', { required: false })} />
                        
                         </div>
                     </div>
