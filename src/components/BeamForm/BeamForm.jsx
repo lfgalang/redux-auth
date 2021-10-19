@@ -124,7 +124,7 @@ export default function BeamForm() {
 
     return (
         
-        <div className="containerForm">
+        <div className="containerBeamForm">
             {/* <img src={Logo} alt="" className="logo" /> */}
             
             <h1 className="title" >Ingreso de datos</h1>

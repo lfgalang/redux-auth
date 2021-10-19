@@ -29,20 +29,20 @@ function LibraryEdit() {
     const [data, setData] = useState([]);
 
     const fetchData = (datos) => {fetch( url,
-            {
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify(datos)
-            })
-                .then(function(response){ return response.json(); })
-                .then(function(datas){ setData(() => {
-                    return datas['response']['data']
-                }) 
-            })
-        }
+        {
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(datos)
+        })
+            .then(function(response){ return response.json(); })
+            .then(function(datas){ setData(() => {
+                return datas['response']['data']
+            }) 
+        })
+    }
         
     useEffect(() => {
         console.log('dentro')
@@ -50,18 +50,31 @@ function LibraryEdit() {
     }, []);
 
 
+    useEffect(() => {
+        
+    })
+
+    const parserData = (data) => {
+        let objetus = [
+            {
+                "user_id": JSON.parse(localStorage.getItem('auth')).user.id,
+                "rebarLibrary_id": rebarLibrary_id.toString(),
+                "data": data
+            }
+        ]
+    } 
 
 
-    // const getLibraries = () => {
-    //     fetch(url).then(resp => resp.json())
-    //     .then(resp => setData(resp))
-    // }
+    const getLibraries = () => {
+        fetch(url).then(resp => resp.json())
+        .then(resp => setData(resp))
+    }
 
-    // useEffect(() => {
-    //     getLibraries()
-    // },[])
+    useEffect(() => {
+        getLibraries()
+    },[])
 
-    // const daticos = getLibraries()
+    const daticos = getLibraries()
     console.log(data)
 
     const columns = [
@@ -102,20 +115,21 @@ function LibraryEdit() {
                     }}
                     
                     editable = {{
-                        // // PARA CREAR NUEVAS FILAS
-                        // onRowAdd:(newData) => new Promise((resolve,reject) => {
-                        //     //Backend call
-                        //     fetch(url,{
-                        //         method:"POST",
-                        //         headers:{
-                        //             'Content-type':"application/json"
-                        //         },
-                        //         body:JSON.stringify(newData)
-                        //     }).then(resp => resp.json())
-                        //     .then(resp => {getLibraries()
-                        //         resolve() 
-                        //     })
-                        // }),
+                        // PARA CREAR NUEVAS FILAS
+                        onRowAdd:(newData) => new Promise((resolve,reject) => {
+                            //Backend call
+                            fetch(url,{
+                                method:"POST",
+                                headers:{
+                                    'Content-type':"application/json"
+                                },
+                                body:JSON.stringify(parserData(newData))
+                            }).then(resp => resp.json())
+                            .then(resp => {getLibraries()
+                                resolve()
+                                // console.log(parseddata)
+                            })
+                        }),
                         // // PARA MODIFICAR FILAS
                         // onRowUpdate: (newData, oldData) => new Promise((resolve,reject) => {
                         //     //Backend call

@@ -31,7 +31,7 @@ export default function DesignSelection() {
                             <select className="selectUnitsExpo" {...register("exposureType", { required: true })}>
                                 {
                                     Object.keys(NoData).map((i,k) => 
-                                        <option key={k} value={String(Object.keys(NoData)[i])}>{((NoData)[i])}</option>
+                                        <option key={k} value={String((NoData)[i])}>{((NoData)[i])}</option>
                                     )
                                     
                                 }

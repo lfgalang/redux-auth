@@ -22,7 +22,7 @@ const getAuthState = () => {
     }
 }
 const newAuth = getAuthState()
-console.log("1", newAuth.token)
+// console.log("1", newAuth.token)
 
 const authReducer = (state = newAuth, action) => {
     switch (action.type) {
@@ -41,9 +41,9 @@ const authReducer = (state = newAuth, action) => {
 
 
         case AuthActionType.LOGIN_SUCCESS:
-            console.log("AuthActionType",action.type)
-            console.log( "action.payload", action.payload)
-            console.log( "action.payload.token", action.payload.token)
+            // console.log("AuthActionType",action.type)
+            // console.log( "action.payload", action.payload)
+            // console.log( "action.payload.token", action.payload.token)
             const loginAuthState = {
                 isLoggedIn: true,
                 user: action.payload.user,

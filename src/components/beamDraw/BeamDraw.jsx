@@ -59,7 +59,7 @@ export default function BeamDraw() {
             .attr("fill", "grey")
             .attr("x",x0)
             .attr("y",y0)
-            .style("fill",t.url())
+            // .style("fill",t.url())
 
         // Feje exterior
         console.log(section["stirrups"]["bni"])
